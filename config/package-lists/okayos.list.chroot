@@ -9,6 +9,12 @@ linux-image-amd64
 firmware-linux-free
 systemd-sysv
 
+# Bootloader bits needed inside the chroot so live-build can assemble the
+# ISO's isolinux/syslinux boot menu.
+isolinux
+syslinux
+syslinux-common
+
 # --- Networking ---------------------------------------------------------------
 network-manager
 network-manager-gnome

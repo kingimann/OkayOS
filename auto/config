@@ -9,11 +9,48 @@ DISTRO_NAME="OkayOS"
 DISTRO_VERSION="0.1"
 DISTRO_CODENAME="Genesis"
 
+# OkayOS builds against the Debian release pocket only (no security/updates/
+# backports). That keeps the build simple and reproducible across very
+# different live-build versions. The "updates" pocket is named differently
+# between live-build generations: Debian's modern live-build calls it
+# `--updates`, while the older one shipped by Ubuntu calls it `--volatile`.
+# Detect which one this host understands and disable it, so the build never
+# tries to reach a non-existent or wrong (Ubuntu) updates mirror.
+UPDATES_FLAG=""
+if lb config --help 2>/dev/null | grep -q -- '--updates'; then
+	UPDATES_FLAG="--updates false"
+elif lb config --help 2>/dev/null | grep -q -- '--volatile'; then
+	UPDATES_FLAG="--volatile false"
+fi
+
+# OkayOS is a live-only system (no Debian installer). The "off" value also
+# changed between live-build generations: modern uses `none`, older uses `false`.
+DI_FLAG="--debian-installer false"
+if lb config --help 2>/dev/null | grep -qE 'debian-installer.*none'; then
+	DI_FLAG="--debian-installer none"
+fi
+
+# The older live-build defaults the syslinux boot menu to an Ubuntu splash
+# package that doesn't exist on Debian. When that option is present, point it
+# at live-build's own bundled theme instead. Modern live-build has no such
+# option and themes the menu itself, so we only set this when it exists.
+SYSLINUX_THEME_FLAG=""
+if lb config --help 2>/dev/null | grep -q -- '--syslinux-theme'; then
+	SYSLINUX_THEME_FLAG="--syslinux-theme live-build"
+fi
+
 lb config noauto \
 	--mode debian \
 	--architectures amd64 \
+	--keyring-packages "debian-archive-keyring" \
+	--linux-packages "linux-image" \
+	--linux-flavours "amd64" \
 	--distribution bookworm \
 	--parent-distribution bookworm \
+	--security false \
+	--backports false \
+	${UPDATES_FLAG} \
+	${SYSLINUX_THEME_FLAG} \
 	--archive-areas "main contrib non-free non-free-firmware" \
 	--parent-archive-areas "main contrib non-free non-free-firmware" \
 	--mirror-bootstrap "http://deb.debian.org/debian/" \
@@ -30,7 +67,7 @@ lb config noauto \
 	--apt-recommends false \
 	--memtest none \
 	--binary-images iso-hybrid \
-	--debian-installer none \
+	${DI_FLAG} \
 	--bootappend-live "boot=live components quiet splash hostname=okayos username=okay" \
 	--iso-application "${DISTRO_NAME}" \
 	--iso-volume "${DISTRO_NAME} ${DISTRO_VERSION}" \

@@ -5,6 +5,10 @@ chroot/
 chroot.files
 binary/
 binary.modified_timestamp
+binary.packages
+chroot.headers
+chroot.packages.install
+chroot.packages.live
 *.iso
 *.img
 *.log

@@ -53,8 +53,8 @@ The live system logs in automatically; the user is `okay` (passwordless `sudo`).
 auto/config                      # live-build settings: base distro, ISO name, boot options
 config/
   package-lists/okayos.list.chroot   # the list of software OkayOS ships
-  hooks/normal/*.hook.chroot         # scripts that run during build (branding, etc.)
   includes.chroot/                   # files copied verbatim into the system:
+    etc/os-release, etc/issue        #   OkayOS name/version branding
     etc/skel/.config/xfce4/...       #   default XFCE layout = the Windows look
     etc/skel/.bashrc                 #   default shell + welcome banner
     etc/lightdm/...                  #   login screen branding
@@ -79,7 +79,7 @@ The Windows look comes entirely from `config/includes.chroot/etc/skel/.config/xf
 - **Add or remove software:** edit `config/package-lists/okayos.list.chroot`.
 - **Turn it into a full desktop with more apps:** add package names to that list.
 - **Change the name/version:** edit `auto/config` and
-  `config/hooks/normal/0100-okayos-branding.hook.chroot`.
+  `config/includes.chroot/etc/os-release` (plus `etc/issue`, `etc/lsb-release`).
 - **Change the wallpaper:** edit `scripts/make-wallpaper.sh`, or drop your own
   `wallpaper.png` into `config/includes.chroot/usr/share/backgrounds/okayos/`.
 - **Tweak the desktop layout:** edit the XML files under
