@@ -13,6 +13,18 @@ distro* by choosing what software ships and how it looks.
 
 ---
 
+## Screenshots
+
+The desktop — bottom taskbar, Start button, clock, and the OkayOS wallpaper:
+
+![OkayOS desktop](docs/screenshots/okayos-desktop.png)
+
+The Start menu (XFCE Whisker menu), Windows-style:
+
+![OkayOS Start menu](docs/screenshots/okayos-start-menu.png)
+
+---
+
 ## Quick start
 
 ```bash
