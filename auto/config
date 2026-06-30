@@ -68,7 +68,7 @@ lb config noauto \
 	--memtest none \
 	--binary-images iso-hybrid \
 	${DI_FLAG} \
-	--bootappend-live "boot=live components quiet splash hostname=okayos username=okay" \
+	--bootappend-live "boot=live components quiet splash hostname=okayos username=okay init=/lib/systemd/systemd" \
 	--iso-application "${DISTRO_NAME}" \
 	--iso-volume "${DISTRO_NAME} ${DISTRO_VERSION}" \
 	--iso-preparer "OkayOS build system" \
