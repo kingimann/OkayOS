@@ -27,16 +27,22 @@ echo "==> Configuring (lb config)"
 lb config
 
 echo "==> Building image (lb build) — this downloads packages and takes a while"
-lb build
+# Old live-build (e.g. Ubuntu's) can fail in its legacy bootloader stage after
+# the filesystem is already built; don't abort, we assemble the ISO below.
+lb build || echo "W: lb build returned an error (often the legacy bootloader stage) — will try direct ISO assembly"
 
 echo "==> Collecting ISO"
 mkdir -p out
 iso="$(ls -1 live-image-*.iso 2>/dev/null | head -1 || true)"
-if [ -z "$iso" ]; then
-	echo "ERROR: build finished but no ISO was produced." >&2
+if [ -n "$iso" ]; then
+	mv -f "$iso" out/OkayOS-amd64.iso
+elif [ -f binary/live/filesystem.squashfs ]; then
+	echo "==> live-build did not emit an ISO; assembling it from the built filesystem"
+	scripts/assemble-iso.sh
+else
+	echo "ERROR: build produced neither an ISO nor a usable binary/ tree." >&2
 	exit 1
 fi
-mv -f "$iso" out/OkayOS-amd64.iso
 echo
 echo "================================================================"
 echo " OkayOS is ready:  out/OkayOS-amd64.iso"

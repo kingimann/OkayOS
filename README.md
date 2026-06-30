@@ -105,6 +105,12 @@ rest (`live-build`, `debootstrap`, `xorriso`, `squashfs-tools`, `imagemagick`, â
 - The ISO boots in **BIOS / legacy** mode (great for QEMU and most VMs). For
   UEFI-only machines you may need to enable legacy/CSM boot, or extend
   `auto/config` with UEFI bootloader options.
+- The **Docker build is the recommended path**: it uses Debian's modern
+  live-build, which builds cleanly start to finish. The native build on an
+  Ubuntu host uses Ubuntu's much older live-build, whose legacy bootloader
+  stage can error out *after* the filesystem is built â€” so `build-native.sh`
+  finishes the job with `scripts/assemble-iso.sh`, which wraps the built
+  filesystem into a bootable ISO directly.
 - This is a **live** system: changes you make while running it are not persisted
   unless you set up persistence or install it to disk. It's meant for experimenting.
 - The Windows theme is the community [B00merang](https://github.com/B00merang-Project)
