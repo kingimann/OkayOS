@@ -1,0 +1,26 @@
+#!/bin/sh
+# Applies the OkayOS wallpaper to every connected monitor/workspace.
+# Runs once at login (see autostart). Monitor names differ across VMs and
+# hardware, so we discover them at runtime instead of hard-coding.
+WP=/usr/share/backgrounds/okayos/wallpaper.png
+[ -f "$WP" ] || exit 0
+
+# Wait for xfdesktop to register its backdrop properties.
+i=0
+while [ "$i" -lt 8 ]; do
+	props=$(xfconf-query -c xfce4-desktop -l 2>/dev/null | grep -E 'last-image$')
+	[ -n "$props" ] && break
+	i=$((i + 1))
+	sleep 1
+done
+
+[ -n "$props" ] || exit 0
+
+for p in $props; do
+	xfconf-query -c xfce4-desktop -p "$p" -s "$WP" 2>/dev/null || true
+done
+
+# Style 5 = "zoomed" so it fills the screen.
+for p in $(xfconf-query -c xfce4-desktop -l 2>/dev/null | grep -E 'image-style$'); do
+	xfconf-query -c xfce4-desktop -p "$p" -s 5 2>/dev/null || true
+done

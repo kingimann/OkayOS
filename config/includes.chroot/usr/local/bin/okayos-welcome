@@ -1,0 +1,22 @@
+#!/bin/sh
+# OkayOS welcome banner, shown on login.
+GREEN='\033[1;32m'; CYAN='\033[1;36m'; DIM='\033[2m'; RESET='\033[0m'
+
+printf "${CYAN}"
+cat <<'EOF'
+   ____  _              ___  ____
+  / __ \| | ____ _ _   _/ _ \/ ___|
+ | |  | | |/ / _` | | | | | | \___ \
+ | |__| |   < (_| | |_| | |_| |___) |
+  \____/|_|\_\__,_|\__, |\___/|____/
+                   |___/
+EOF
+printf "${RESET}"
+
+printf "  ${GREEN}OkayOS 0.1 (Genesis)${RESET} — your homemade Linux\n"
+printf "  ${DIM}A live system built with live-build. Everything here is yours to change.${RESET}\n\n"
+printf "  Try: ${GREEN}neofetch${RESET}   ${GREEN}htop${RESET}   ${GREEN}cat /etc/os-release${RESET}\n"
+printf "  Make it yours: edit ${GREEN}config/${RESET} in the OkayOS repo and rebuild.\n\n"
+
+# Show neofetch if available, quietly skip if not.
+command -v neofetch >/dev/null 2>&1 && neofetch --off 2>/dev/null || true

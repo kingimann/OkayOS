@@ -1,0 +1,27 @@
+#!/bin/sh
+# OkayOS live-build configuration.
+# This file is run by `lb config` and defines how the ISO is assembled.
+# Tweak values here to change the personality of your distro.
+set -e
+
+# --- Identity -----------------------------------------------------------------
+DISTRO_NAME="OkayOS"
+DISTRO_VERSION="0.1"
+DISTRO_CODENAME="Genesis"
+
+lb config noauto \
+	--mode debian \
+	--architectures amd64 \
+	--distribution bookworm \
+	--archive-areas "main contrib non-free non-free-firmware" \
+	--apt-indices false \
+	--apt-recommends false \
+	--memtest none \
+	--binary-images iso-hybrid \
+	--debian-installer none \
+	--bootappend-live "boot=live components quiet splash hostname=okayos username=okay" \
+	--iso-application "${DISTRO_NAME}" \
+	--iso-volume "${DISTRO_NAME} ${DISTRO_VERSION}" \
+	--iso-preparer "OkayOS build system" \
+	--iso-publisher "OkayOS; https://github.com/kingimann/OkayOS" \
+	"${@}"

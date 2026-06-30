@@ -1,0 +1,66 @@
+# OkayOS package selection — Windows-style desktop edition.
+# These packages are installed into the live system.
+
+# --- Boot & system essentials -------------------------------------------------
+live-boot
+live-config
+live-config-systemd
+linux-image-amd64
+firmware-linux-free
+systemd-sysv
+
+# --- Networking ---------------------------------------------------------------
+network-manager
+network-manager-gnome
+iproute2
+iputils-ping
+wget
+curl
+openssh-client
+
+# --- X / desktop (XFCE, themed to look like Windows) --------------------------
+xorg
+xserver-xorg-video-fbdev
+xfce4
+xfce4-terminal
+xfce4-whiskermenu-plugin
+xfce4-notifyd
+xfce4-screenshooter
+thunar
+thunar-archive-plugin
+lightdm
+lightdm-gtk-greeter
+dbus-x11
+
+# --- Theming engines / assets -------------------------------------------------
+gtk2-engines-murrine
+gnome-themes-extra
+fonts-dejavu
+fonts-liberation2
+papirus-icon-theme
+
+# --- Apps you'd expect on a desktop ------------------------------------------
+firefox-esr
+mousepad
+ristretto
+file-roller
+galculator
+
+# --- Shell / CLI experience ---------------------------------------------------
+sudo
+bash-completion
+tmux
+vim
+nano
+less
+git
+htop
+tree
+neofetch
+man-db
+ncurses-term
+
+# --- Locale / console ---------------------------------------------------------
+locales
+console-setup
+keyboard-configuration

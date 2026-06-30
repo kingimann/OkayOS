@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=OkayOS Wallpaper
+Comment=Apply the OkayOS wallpaper on login
+Exec=/usr/local/bin/okayos-set-wallpaper
+OnlyShowIn=XFCE;
+X-XFCE-Autostart-Override=true
+NoDisplay=true

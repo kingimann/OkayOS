@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channel name="xfwm4" version="1.0">
+  <property name="general" type="empty">
+    <property name="theme" type="string" value="Windows-10"/>
+    <property name="title_font" type="string" value="Liberation Sans Bold 9"/>
+    <!-- Windows-style window buttons: minimize, maximize, close on the right -->
+    <property name="button_layout" type="string" value="O|HMC"/>
+    <property name="title_alignment" type="string" value="left"/>
+    <property name="click_to_focus" type="bool" value="true"/>
+    <property name="snap_to_border" type="bool" value="true"/>
+    <property name="snap_to_windows" type="bool" value="true"/>
+  </property>
+</channel>
